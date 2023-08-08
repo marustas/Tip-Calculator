@@ -62,13 +62,11 @@ const App = () => {
       <Tip tipFriend={tip} onSetTip={setTipFriend}>
         How did your friend like the service?
       </Tip>
-      {bill > 0 ? (
-        <div>
+      {bill > 0 && (
+        <>
           <Total cost={cost} bill={bill} />
           <ResetBtn onReset={handleReset} />
-        </div>
-      ) : (
-        <div></div>
+        </>
       )}
     </div>
   );

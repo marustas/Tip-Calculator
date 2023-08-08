@@ -4,7 +4,7 @@ import "./App.css";
 const Bill = ({ onSetBill, bill }) => {
   return (
     <div>
-      <p>How much was the bil??</p>
+      <label>How much was the bil??</label>
       <input
         value={bill}
         onChange={(e) => onSetBill(Number(e.target.value))}

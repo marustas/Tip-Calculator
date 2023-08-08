@@ -13,8 +13,21 @@ const Bill = ({ onSetBill }) => {
   );
 };
 
-const Total = ({ cost }) => {
-  return <p>You pay ${cost}</p>;
+const Total = ({ cost, bill }) => {
+  return (
+    <p>
+      You pay ${cost} (${bill} + ${cost - bill} tip )
+    </p>
+  );
+};
+
+const ResetBtn = ({ onSetBill, onSetTip, onSetTipFriend }) => {
+  const reset = () => {
+    onSetBill(0);
+    onSetTip("0");
+    onSetTipFriend("0");
+  };
+  return <button onClick={(e) => reset()}>Reset</button>;
 };
 
 const Tip = ({ tip, onSetTip }) => {
@@ -58,7 +71,12 @@ const App = () => {
       <Bill onSetBill={setBill} />
       <Tip tip={tip} onSetTip={setTip} />
       <TipFriend tipFriend={tipFriend} onSetTipFriend={setTipFriend} />
-      <Total cost={cost} />
+      <Total cost={cost} bill={bill} />
+      <ResetBtn
+        onSetBill={setBill}
+        onSetTip={setTip}
+        onSetTipFriend={setTipFriend}
+      />
     </div>
   );
 };

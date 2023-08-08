@@ -1,25 +1,66 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
 
-function App() {
+const Bill = ({ onSetBill }) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <p>How much was the bil??</p>
+      <input
+        onChange={(e) => onSetBill(Number(e.target.value))}
+        type="text"
+      ></input>
     </div>
   );
-}
+};
+
+const Total = ({ cost }) => {
+  return <p>You pay ${cost}</p>;
+};
+
+const Tip = ({ tip, onSetTip }) => {
+  return (
+    <div>
+      <p>How did you like the service?</p>
+      <select value={tip} onChange={(event) => onSetTip(event.target.value)}>
+        <option value="0">Dissatisfied 0%</option>
+        <option value="5">It was okay 5%</option>
+        <option value="10">It was good 10%</option>
+        <option value="20">It was wonderful 20%</option>
+      </select>
+    </div>
+  );
+};
+const TipFriend = ({ tipFriend, onSetTipFriend }) => {
+  return (
+    <div>
+      <p>How did your friend like the service?</p>
+      <select
+        value={tipFriend}
+        onChange={(event) => onSetTipFriend(event.target.value)}
+      >
+        <option value="0">Dissatisfied 0%</option>
+        <option value="5">It was okay 5%</option>
+        <option value="10">It was good 10%</option>
+        <option value="20">It was wonderful 20%</option>
+      </select>
+    </div>
+  );
+};
+
+const App = () => {
+  const [bill, setBill] = useState(0);
+  const [tip, setTip] = useState("0");
+  const [tipFriend, setTipFriend] = useState("0");
+  let cost;
+  cost = ((Number(tip) + Number(tipFriend)) / 200) * bill + bill;
+  return (
+    <div className="App">
+      <Bill onSetBill={setBill} />
+      <Tip tip={tip} onSetTip={setTip} />
+      <TipFriend tipFriend={tipFriend} onSetTipFriend={setTipFriend} />
+      <Total cost={cost} />
+    </div>
+  );
+};
 
 export default App;

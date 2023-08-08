@@ -22,13 +22,8 @@ const Total = ({ cost, bill }) => {
   );
 };
 
-const ResetBtn = ({ onSetBill, onSetTip, onSetTipFriend }) => {
-  const reset = () => {
-    onSetBill(0);
-    onSetTip("0");
-    onSetTipFriend("0");
-  };
-  return <button onClick={(e) => reset()}>Reset</button>;
+const ResetBtn = ({ onReset }) => {
+  return <button onClick={(e) => onReset()}>Reset</button>;
 };
 
 const Tip = ({ children, tip, onSetTip }) => {
@@ -48,26 +43,29 @@ const Tip = ({ children, tip, onSetTip }) => {
 const App = () => {
   const [bill, setBill] = useState(0);
   const [tip, setTip] = useState("0");
-  const [tipFriend, SetTipFriend] = useState("0");
+  const [tipFriend, setTipFriend] = useState("0");
+
   let cost;
   cost = ((Number(tip) + Number(tipFriend)) / 200) * bill + bill;
+
+  const handleReset = () => {
+    setBill(0);
+    setTip("0");
+    setTipFriend("0");
+  };
   return (
     <div className="App">
       <Bill bill={bill} onSetBill={setBill} />
       <Tip tip={tip} onSetTip={setTip}>
         How did you like the service?
       </Tip>
-      <Tip tipFriend={tip} onSetTip={SetTipFriend}>
+      <Tip tipFriend={tip} onSetTip={setTipFriend}>
         How did your friend like the service?
       </Tip>
       {bill > 0 ? (
         <div>
           <Total cost={cost} bill={bill} />
-          <ResetBtn
-            onSetBill={setBill}
-            onSetTip={setTip}
-            onSetTipFriend={SetTipFriend}
-          />
+          <ResetBtn onReset={handleReset} />
         </div>
       ) : (
         <div></div>

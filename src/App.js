@@ -71,12 +71,18 @@ const App = () => {
       <Bill onSetBill={setBill} />
       <Tip tip={tip} onSetTip={setTip} />
       <TipFriend tipFriend={tipFriend} onSetTipFriend={setTipFriend} />
-      <Total cost={cost} bill={bill} />
-      <ResetBtn
-        onSetBill={setBill}
-        onSetTip={setTip}
-        onSetTipFriend={setTipFriend}
-      />
+      {bill > 0 ? (
+        <div>
+          <Total cost={cost} bill={bill} />
+          <ResetBtn
+            onSetBill={setBill}
+            onSetTip={setTip}
+            onSetTipFriend={setTipFriend}
+          />
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };
